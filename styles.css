@@ -1,9 +1,12 @@
 :root {
-  --ink: #1c1c1c;
-  --paper: #f8f5ef;
-  --border: #222;
-  --muted: #666;
-  --accent: #7f1d1d;
+  --ink: #152238;
+  --paper: #f5f7fb;
+  --border: #d5dcea;
+  --muted: #5d6b82;
+  --accent: #5a40ff;
+  --accent-soft: #ece8ff;
+  --card: #ffffff;
+  --shadow: 0 12px 35px rgba(18, 34, 66, 0.09);
 }
 
 * {
@@ -12,23 +15,27 @@
 
 body {
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   color: var(--ink);
-  background: var(--paper);
+  background: radial-gradient(circle at 15% 15%, #ffffff, #edf2ff 45%, #eaf0ff 100%);
   line-height: 1.5;
 }
 
 .paper-header {
-  border-bottom: 4px double var(--border);
+  border-bottom: 1px solid var(--border);
   text-align: center;
-  padding: 1rem;
+  padding: 1.3rem 1rem 1rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .paper-header h1 {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 4rem);
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.02em;
 }
 
 .edition,
@@ -43,13 +50,21 @@ body {
   gap: 0.8rem;
   justify-content: center;
   border-bottom: 1px solid var(--border);
-  padding: 0.7rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
 }
 
 .sections-nav a {
   color: var(--ink);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.sections-nav a:hover {
+  background: var(--accent-soft);
 }
 
 .layout {
@@ -62,10 +77,52 @@ body {
 
 .lead,
 .agent-panel,
+.forecast-panel,
 .news-grid {
   border: 1px solid var(--border);
-  background: #fffdf8;
+  background: var(--card);
   padding: 1rem;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.forecast-panel {
+  grid-column: span 2;
+}
+
+.forecast-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.7rem;
+}
+
+.forecast-panel li {
+  background: #f8f9ff;
+  border: 1px solid #dce2ff;
+  border-radius: 10px;
+  padding: 0.7rem;
+}
+
+.forecast-title {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.forecast-headline {
+  margin: 0.35rem 0;
+  font-weight: 700;
+}
+
+.forecast-meta {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--muted);
 }
 
 .news-grid {
@@ -101,7 +158,7 @@ body {
 }
 
 .news-card {
-  border-top: 4px solid var(--border);
+  border-top: 4px solid #d8dcff;
   padding-top: 0.6rem;
 }
 
@@ -175,6 +232,10 @@ body {
   }
 
   .news-grid {
+    grid-column: span 1;
+  }
+
+  .forecast-panel {
     grid-column: span 1;
   }
 }

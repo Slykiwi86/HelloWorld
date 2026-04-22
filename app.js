@@ -47,9 +47,19 @@ const updatesPool = [
   'Editors marked this topic as a high-priority developing story.',
 ];
 
+const forecastSignals = [
+  'Policy pressure likely to increase',
+  'Earnings reaction window opens',
+  'Public sentiment surge expected',
+  'Negotiations may enter decisive phase',
+  'Regulatory response appears likely',
+  'Travel and mobility demand may climb',
+];
+
 const state = {
   articles: [],
   comments: loadComments(),
+  forecast: [],
   agent: {
     lastRun: null,
     nextRun: Date.now() + ONE_HOUR,
@@ -105,11 +115,22 @@ function runAgentCycle({ manual = false } = {}) {
     .sort((a, b) => b.createdAt - a.createdAt)
     .slice(0, 4);
   ongoing.forEach(updateExistingArticle);
+  state.forecast = buildForecast();
 
   state.agent.lastRun = Date.now();
   state.agent.nextRun = state.agent.lastRun + ONE_HOUR;
 
   render(manual ? 'Agent executed manually.' : 'Agent completed its hourly generation cycle.');
+}
+
+function buildForecast() {
+  return sections.slice(0, 5).map((section) => ({
+    id: crypto.randomUUID(),
+    section,
+    signal: pick(forecastSignals),
+    eta: `${6 + Math.floor(Math.random() * 19)}h`,
+    confidence: `${70 + Math.floor(Math.random() * 26)}%`,
+  }));
 }
 
 function leadArticle() {
@@ -153,6 +174,18 @@ function render(statusMessage) {
 
   const sectionsContainer = document.getElementById('sections');
   sectionsContainer.innerHTML = '';
+  const forecastList = document.getElementById('forecast-list');
+  forecastList.innerHTML = '';
+
+  state.forecast.forEach((item) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <p class="forecast-title">${item.section}</p>
+      <p class="forecast-headline">${item.signal}</p>
+      <p class="forecast-meta">ETA: ${item.eta} · Confidence: ${item.confidence}</p>
+    `;
+    forecastList.append(li);
+  });
 
   state.articles.forEach((article) => {
     const tpl = document.getElementById('article-template');
