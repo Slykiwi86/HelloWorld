@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Hourly Chronicle</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="paper-header">
+      <p class="edition">Live Edition · Updated Hourly by AI Desk</p>
+      <h1>The Hourly Chronicle</h1>
+      <p class="tagline">A modern newspaper with AI-generated reporting every hour.</p>
+    </header>
+
+    <nav class="sections-nav" aria-label="News sections">
+      <a href="#top-story">Top Story</a>
+      <a href="#world">World</a>
+      <a href="#politics">Politics</a>
+      <a href="#business">Business</a>
+      <a href="#technology">Technology</a>
+      <a href="#sports">Sports</a>
+      <a href="#entertainment">Entertainment</a>
+      <a href="#lifestyle">Lifestyle</a>
+    </nav>
+
+    <main class="layout">
+      <section class="lead" id="top-story">
+        <h2>Front Page</h2>
+        <article class="lead-article" id="lead-article"></article>
+      </section>
+
+      <aside class="agent-panel" aria-live="polite">
+        <h2>AI Newsroom Agent</h2>
+        <p id="last-run">Last run: --</p>
+        <p id="next-run">Next run: --</p>
+        <button id="run-now" type="button">Run Agent Now</button>
+        <p class="hint">The AI agent runs automatically every hour, adding new stories and live updates.</p>
+      </aside>
+
+      <section class="forecast-panel" id="forecast">
+        <h2>News Forecast</h2>
+        <p class="hint">AI predictions for likely developments in the next 6–24 hours.</p>
+        <ul id="forecast-list"></ul>
+      </section>
+
+      <section class="news-grid" id="sections"></section>
+    </main>
+
+    <template id="article-template">
+      <article class="news-card">
+        <header>
+          <p class="section-label"></p>
+          <h3 class="headline"></h3>
+          <p class="meta"></p>
+        </header>
+        <p class="summary"></p>
+
+        <section class="updates">
+          <h4>Live Updates</h4>
+          <ul class="updates-list"></ul>
+        </section>
+
+        <section class="comments">
+          <h4>Comments</h4>
+          <ul class="comments-list"></ul>
+          <form class="comment-form">
+            <label>
+              <span>Name</span>
+              <input name="author" required maxlength="30" placeholder="Reader name" />
+            </label>
+            <label>
+              <span>Comment</span>
+              <textarea name="content" required maxlength="280" placeholder="Join the conversation"></textarea>
+            </label>
+            <button type="submit">Post Comment</button>
+          </form>
+        </section>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
